@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turmas</title>
+</head>
+
+<body>
+    <script>
+        class Pessoa {
+            constructor(cpf, nome) {
+                this.cpf = cpf;
+                this.nome = nome;
+            }
+        }
+
+        class Professor extends Pessoa {
+            constructor(cpf, nome, area, telefone) {
+                super(cpf, nome);
+                this.area = area;
+                this.telefone = telefone;
+            }
+        }
+
+        class Aluno extends Pessoa {
+            constructor(cpf, nome, matricula) {
+                super(cpf, nome);
+                this.matricula = matricula;
+            }
+        }
+
+        class Turma {
+            constructor(professor, alunos, identificacao) {
+                this.professor = professor;
+                this.alunos = alunos;
+                this.identificacao = identificacao;
+            }
+
+            imprimeDados() {
+                let dados = [];
+                dados.push(`Identificação da Turma: ${this.identificacao}`);
+                dados.push(`Professor: ${this.professor.nome}, Área: ${this.professor.area}, Telefone: ${this.professor.telefone}`);
+                dados.push("Alunos:");
+                this.alunos.forEach(aluno => {
+                    dados.push(`CPF: ${aluno.cpf}, Nome: ${aluno.nome}, Matrícula: ${aluno.matricula}`);
+                });
+                return dados.join('<br>');
+            }
+        }
+
+        const professor1 = new Professor("12345678901", "João", "Matemática", "53987654321");
+        const professor2 = new Professor("98765432101", "Maria", "História", "53987654312");
+
+        const aluno1 = new Aluno("12345678902", "Ana", "11030301");
+        const aluno2 = new Aluno("12345678903", "Carlos", "11030302");
+        const aluno3 = new Aluno("12345678904", "Pedro", "11030303");
+        const aluno4 = new Aluno("12345678905", "Mariana", "11020201");
+        const aluno5 = new Aluno("12345678906", "Paula", "11020202");
+        const aluno6 = new Aluno("12345678907", "Lucas", "11020203");
+
+        const turma1 = new Turma(professor1, [aluno1, aluno2, aluno3, aluno4], "Turma 1");
+        const turma2 = new Turma(professor2, [aluno1, aluno5, aluno6, aluno3], "Turma 2");
+
+        function exibirDadosTurma(turma) {
+            const resultado = document.createElement('div');
+            resultado.innerHTML = '<h2>' + turma.identificacao + '</h2>';
+            resultado.innerHTML += '<p>' + turma.imprimeDados() + '</p>';
+            document.body.appendChild(resultado);
+        }
+
+        exibirDadosTurma(turma1);
+        exibirDadosTurma(turma2);
+    </script>
+</body>
+
+</html>
